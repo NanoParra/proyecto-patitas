@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agenda de Citas - Clínica PatitasSanas</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      mostrarCitas();
+    });
+
+    function guardarCita(event) {
+      event.preventDefault();
+
+    
+      const nombreMascota = document.getElementById("nombreMascota").value;
+      const fechaCita = document.getElementById("fechaCita").value;
+      const motivoCita = document.getElementById("motivoCita").value;
+
+      if (nombreMascota && fechaCita && motivoCita) {
+      
+        const cita = {
+          nombreMascota,
+          fechaCita,
+          motivoCita
+        };
+
+       
+        const citas = JSON.parse(localStorage.getItem("citas")) || [];
+        citas.push(cita);
+        localStorage.setItem("citas", JSON.stringify(citas));
+
+        
+        document.getElementById("citaForm").reset();
+        mostrarCitas();
+        alert("Cita agendada con éxito.");
+      } else {
+        alert("Por favor, completa todos los campos.");
+      }
+    }
+
+   
+    function mostrarCitas() {
+      const citas = JSON.parse(localStorage.getItem("citas")) || [];
+      const citasList = document.getElementById("citasList");
+
+      
+      citasList.innerHTML = "";
+
+      citas.forEach((cita, index) => {
+        const citaItem = document.createElement("div");
+        citaItem.classList.add("cita-item");
+        citaItem.innerHTML = `
+          <p><strong>Mascota:</strong> ${cita.nombreMascota}</p>
+          <p><strong>Fecha:</strong> ${cita.fechaCita}</p>
+          <p><strong>Motivo:</strong> ${cita.motivoCita}</p>
+          <button onclick="eliminarCita(${index})">Eliminar</button>
+          <hr>
+        `;
+        citasList.appendChild(citaItem);
+      });
+    }
+
+    
+    function eliminarCita(index) {
+      const citas = JSON.parse(localStorage.getItem("citas")) || [];
+      citas.splice(index, 1);
+      localStorage.setItem("citas", JSON.stringify(citas));
+      mostrarCitas();
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Agenda de Citas</h1>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="historial.html">Historial Clínico</a>
+      <a href="contacto.html">Contacto</a>
+      <a href="login.html">Iniciar Sesión</a>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <form id="citaForm" onsubmit="guardarCita(event)">
+        <label for="nombreMascota">Nombre de la Mascota:</label>
+        <input type="text" id="nombreMascota" required>
+
+        <label for="fechaCita">Fecha de la Cita:</label>
+        <input type="date" id="fechaCita" required>
+
+        <label for="motivoCita">Motivo de la Cita:</label>
+        <input type="text" id="motivoCita" required>
+
+        <button type="submit">Agendar Cita</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Citas Agendadas</h2>
+      <div id="citasList"></div>
+    </section>
+  </main>
+</body>
+</html>

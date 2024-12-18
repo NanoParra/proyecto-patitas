@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registro - Clínica PatitasSanas</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script>
+    // Función para manejar el registro y redirigir al usuario a la agenda
+    function registrarUsuario(event) {
+      event.preventDefault(); // Evita que el formulario se envíe
+
+      // Simulación de guardado de datos (esto no guarda realmente, es solo demostrativo)
+      const nombre = document.getElementById('nombre').value;
+      const email = document.getElementById('email').value;
+
+      // Validación de campos (opcional)
+      if (nombre && email) {
+        alert("Registro exitoso. Serás redirigido a la agenda de citas.");
+        // Redirige a la página de agendar citas
+        window.location.href = "agenda.html";
+      } else {
+        alert("Por favor, completa todos los campos.");
+      }
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Registro de Nuevo Usuario</h1>
+  </header>
+  <main>
+    <form onsubmit="registrarUsuario(event)">
+      <label for="nombre">Nombre Completo:</label>
+      <input type="text" id="nombre" name="nombre" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="usuario">Usuario:</label>
+      <input type="text" id="usuario" name="usuario" required>
+
+      <label for="contrasena">Contraseña:</label>
+      <input type="password" id="contrasena" name="contrasena" required>
+
+      <button type="submit">Registrarse</button>
+    </form>
+  </main>
+</body>
+</html>

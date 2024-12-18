@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Iniciar Sesión - Clínica PatitasSanas</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Iniciar Sesión</h1>
+  </header>
+  <main>
+    <form id="loginForm">
+      <label for="usuario">Usuario:</label>
+      <input type="text" id="usuario" name="usuario" required>
+    
+      <label for="contrasena">Contraseña:</label>
+      <input type="password" id="contrasena" name="contrasena" required>
+    
+      <button type="submit">Ingresar</button>
+    </form>
+    
+    <script>
+      document.getElementById("loginForm").addEventListener("submit", function(event) {
+        event.preventDefault(); // Evita que el formulario se envíe de forma predeterminada
+    
+        const usuario = document.getElementById("usuario").value;
+    
+        // Guardar el nombre de usuario en localStorage
+        localStorage.setItem("usuarioActivo", usuario);
+    
+        // Redirigir a la página de inicio o recargarla
+        window.location.href = "index.html";
+      });
+    </script>
+    
+    <p>¿Olvidaste tu contraseña? <a href="recuperar_contrasena.html">Haz clic aquí</a></p>
+    <p>¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>
+    <p>¿Salir? <a href="index.html">Volver a Home</a></p>
+  </main>
+</body>
+</html>

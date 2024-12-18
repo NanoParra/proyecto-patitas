@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administración de Citas - Clínica PatitasSanas</title>
+  <link rel="stylesheet" href="css/style2.css">
+  <script>
+    // Función para cargar y mostrar citas guardadas al cargar la página
+    document.addEventListener("DOMContentLoaded", function() {
+      mostrarCitasAdmin();
+    });
+
+    // Función para mostrar citas en la página de administración
+    function mostrarCitasAdmin() {
+      const citas = JSON.parse(localStorage.getItem("citas")) || [];
+      const citasList = document.getElementById("adminCitasList");
+
+      citasList.innerHTML = ""; // Limpiar la lista de citas
+
+      citas.forEach((cita, index) => {
+        const citaItem = document.createElement("div");
+        citaItem.classList.add("cita-item");
+        citaItem.innerHTML = `
+          <p><strong>Mascota:</strong> ${cita.nombreMascota}</p>
+          <p><strong>Fecha:</strong> ${cita.fechaCita}</p>
+          <p><strong>Motivo:</strong> ${cita.motivoCita}</p>
+          <button onclick="eliminarCita(${index})">Eliminar</button>
+          <hr>
+        `;
+        citasList.appendChild(citaItem);
+      });
+    }
+
+    // Función para eliminar una cita y actualizar la lista
+    function eliminarCita(index) {
+      const citas = JSON.parse(localStorage.getItem("citas")) || [];
+      citas.splice(index, 1); // Eliminar la cita seleccionada
+      localStorage.setItem("citas", JSON.stringify(citas));
+      mostrarCitasAdmin(); // Actualizar la lista de citas
+    }
+  </script>
+</head>
+<body>
+  <header>
+    <h1>Administración de Citas</h1>
+    <nav>
+      <a href="agenda.html">Volver a Agendar Citas</a>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <h2>Citas Agendadas</h2>
+      <div id="adminCitasList"></div>
+    </section>
+  </main>
+</body>
+</html>
